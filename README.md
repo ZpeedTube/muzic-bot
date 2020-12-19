@@ -10,7 +10,8 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
-* [Author](#author)
+* [Original Author](#original-author)
+* [Forked](#forked-from)
 * [License](#license)
 
 ## Features
