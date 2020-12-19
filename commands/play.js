@@ -81,7 +81,7 @@ module.exports = {
 		if (!song) {
 			server.timeoutLeave = setTimeout(() => {
 				serverQueue.voiceChannel.leave();
-			}, server.timeout * 1000);
+			}, (server.timeout * 1000) || 5);
 			queue.delete(guild.id);
 			return;
 		}
