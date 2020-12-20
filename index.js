@@ -37,40 +37,41 @@ function getServer(message) {
 			return server;
 		}
 	}
-	const configFileName = './server_configs/' + message.channel.guild.name + '_config.json';
+	const configFileName = './server_configs/' + message.channel.guild.id + '_config.json';
 	const server = {
 		guild: message.channel.guild,
 		dispatcher: null,
 		timeoutLeave: undefined,
 		timeout: 30,
-		configFileName: () => {
-			return configFileName;
-		},
+		configFileName: configFileName,
 		getConfig: () => {
 			let configFile = '{}';
 			try {
 				configFile = fs.readFileSync(configFileName);
 			}
 			catch (e) {
-				configFile = '{"volume": 100},"timeout":30}';
+				configFile = '{"volume":100,"timeout":30}';
 			}
 			return JSON.parse(configFile);
 		},
 		saveConfig: (config) => {
 			fs.writeFileSync(configFileName, JSON.stringify(config));
 		},
+		prefix: prefix,
 	};
-	server.timeout = server.getConfig().timeout;
+	server.timeout = server.getConfig().timeout || 30;
+	server.prefix = server.getConfig().prefix || prefix;
 	servers.push(server);
+	return server;
 }
 
 client.on('message', async message => {
-	const args = message.content.slice(prefix.length).split(/ +/);
+	const server = getServer(message);
+	const args = message.content.slice(server.prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName);
-	const server = getServer(message);
 	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix)) return;
+	if (!message.content.startsWith(server.prefix)) return;
 
 	try {
 		if(commandName == 'ban' || commandName == 'userinfo') {
