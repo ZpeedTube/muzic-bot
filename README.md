@@ -1,6 +1,6 @@
 # Discord Music bot
 
-A simple discord bot that helps you manage your server by providing useful commands like playing music or deleting text messages.
+A simple discord bot that playies music.
 
 You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot). 
 
@@ -10,17 +10,16 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
-* [Author](#author)
+* [Original Author](#original-author)
+* [Forked](#forked-from)
 * [License](#license)
 
 ## Features
 
-- Ban
-- Userinfo
 - Play music
 - Skip songs
 - Stop music
-- Purge text messages
+- Adjust volume of music
 
 ## Requirements
 
@@ -37,10 +36,10 @@ First, make sure you have all the required tools installed on your local machine
 
 ```bash
 # Clone the repository
-git clone https://github.com/TannerGabriel/discord-bot.git
+git clone https://github.com/ZpeedTube/muzic-bot.git
 
 # Enter into the directory
-cd discord-bot/
+cd muzic-bot/
 
 # Install the dependencies
 npm install
