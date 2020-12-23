@@ -1,6 +1,6 @@
 # Discord Music bot
 
-A simple discord bot that helps you manage your server by providing useful commands like playing music or deleting text messages.
+A simple discord bot that playies music.
 
 You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot). 
 
@@ -10,17 +10,16 @@ You can find the tutorial about building a discord music bot [here](https://gabr
 * [Requirements](#requirements)
 * [Getting started](#getting-started)
 * [Common errors](#common-errors)
-* [Author](#author)
+* [Original Author](#original-author)
+* [Forked](#forked-from)
 * [License](#license)
 
 ## Features
 
-- Ban
-- Userinfo
 - Play music
 - Skip songs
 - Stop music
-- Purge text messages
+- Adjust volume of music
 
 ## Requirements
 
@@ -37,10 +36,10 @@ First, make sure you have all the required tools installed on your local machine
 
 ```bash
 # Clone the repository
-git clone https://github.com/TannerGabriel/discord-bot.git
+git clone https://github.com/ZpeedTube/muzic-bot.git
 
 # Enter into the directory
-cd discord-bot/
+cd muzic-bot/
 
 # Install the dependencies
 npm install
@@ -82,13 +81,13 @@ npm install ytdl-core@latest
 
 The `play` command requires FFMPEG to be installed on the machine that is running the bot. You can download it on the official [FFMPEG website](https://www.ffmpeg.org/). Note: This isn't relevant if you use the Dockerfile because it will install FFMPEG inside of the container.
 
-## Author
+## Original Author
 
 Gabriel Tanner
 
-## Support me
+## Forked from 
 
-<a href="https://www.buymeacoffee.com/gabrieltanner" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+https://github.com/TannerGabriel/discord-bot
 
 ## License
 
