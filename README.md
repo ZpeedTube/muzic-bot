@@ -1,6 +1,8 @@
-# Discord Music bot
+# Discord Muzic bot
 
 A simple discord bot that playies music.
+
+Each discord server that is connected will have a sepparet config in ***server_configs*** folder.
 
 You can find the tutorial about building a discord music bot [here](https://gabrieltanner.org/blog/dicord-music-bot). 
 
