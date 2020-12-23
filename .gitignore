@@ -1,2 +1,6 @@
 node_modules
 npm-debug.log
+
+server_configs/*
+oauth2.txt
+config.json
