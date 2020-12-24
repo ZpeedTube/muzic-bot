@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core');
+const ytpl = require('ytpl');
 
 module.exports = {
 	name: 'play',
@@ -25,11 +26,33 @@ module.exports = {
 				);
 			}
 
-			const songInfo = await ytdl.getInfo(args[1]);
-			const song = {
-				title: songInfo.videoDetails.title,
-				url: songInfo.videoDetails.video_url,
+			const playlist = {
+				title: '',
+				items: [],
 			};
+			let songInfo, song;
+			try {
+				console.log('test1');
+				const ytPlaylist = await ytpl(args[1]);
+				playlist.title = ytPlaylist.title;
+				console.log('test2', playlist.title);
+				ytPlaylist.items.forEach(item => {
+					playlist.items.push({
+						title: item.title,
+						url: item.shortUrl,
+						duration: item.durationSec,
+					});
+				});
+				console.log('playlist', playlist.items[0], playlist.items.length);
+			}
+			catch (err) {
+				songInfo = await ytdl.getInfo(args[1]);
+				song = {
+					title: songInfo.videoDetails.title,
+					url: songInfo.videoDetails.video_url,
+					duration: parseInt(songInfo.videoDetails.lengthSeconds, 10),
+				};
+			}
 
 			if (!serverQueue) {
 				const config = server.getConfig();
@@ -47,7 +70,14 @@ module.exports = {
 
 				queue.set(message.guild.id, queueContruct);
 
-				queueContruct.songs.push(song);
+				if (playlist.items.length > 0) {
+					playlist.items.forEach(item => {
+						queueContruct.songs.push(item);
+					});
+				}
+				else {
+					queueContruct.songs.push(song);
+				}
 
 				try {
 					const connection = await voiceChannel.join();
@@ -59,6 +89,14 @@ module.exports = {
 					queue.delete(message.guild.id);
 					return message.channel.send(err);
 				}
+			}
+			else if (playlist.items.length > 0) {
+				playlist.items.forEach(item => {
+					serverQueue.songs.push(item);
+				});
+				return message.channel.send(
+					`Added ${playlist.items.length} songs from ${playlist.title} playlist to the queue`,
+				);
 			}
 			else {
 				serverQueue.songs.push(song);
@@ -90,12 +128,13 @@ module.exports = {
 			.play(ytdl(song.url))
 			.on('finish', () => {
 				serverQueue.songs.shift();
-				this.play(message, serverQueue.songs[0]);
+				this.play(message, serverQueue.songs[0], server);
 			})
 			.on('error', error => console.error(error));
 		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-		server.dispatcher = dispatcher;
-		console.log('dispatcher added?');
+		if (dispatcher) {
+			server.dispatcher = dispatcher;
+		}
 
 		serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 	},
