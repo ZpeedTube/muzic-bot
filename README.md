@@ -83,9 +83,6 @@ npm install ytdl-core@latest
 
 The `play` command requires FFMPEG to be installed on the machine that is running the bot. You can download it on the official [FFMPEG website](https://www.ffmpeg.org/). Note: This isn't relevant if you use the Dockerfile because it will install FFMPEG inside of the container.
 
-## Original Author
-
-Gabriel Tanner
 
 ## Forked from 
 
