@@ -1,5 +1,6 @@
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
+const math = require('../util/math');
 
 module.exports = {
 	name: 'play',
@@ -29,19 +30,19 @@ module.exports = {
 			const playlist = {
 				title: '',
 				items: [],
+				duration: 0,
 			};
 			let songInfo, song;
 			try {
-				console.log('test1');
 				const ytPlaylist = await ytpl(args[1]);
 				playlist.title = ytPlaylist.title;
-				console.log('test2', playlist.title);
 				ytPlaylist.items.forEach(item => {
 					playlist.items.push({
 						title: item.title,
 						url: item.shortUrl,
 						duration: item.durationSec,
 					});
+					playlist.duration += item.durationSec;
 				});
 				console.log('playlist', playlist.items[0], playlist.items.length);
 			}
@@ -95,13 +96,13 @@ module.exports = {
 					serverQueue.songs.push(item);
 				});
 				return message.channel.send(
-					`Added ${playlist.items.length} songs from ${playlist.title} playlist to the queue`,
+					`Added ${playlist.items.length} songs from **${playlist.title}** (${math.formatTime(playlist.duration)}) playlist to the queue`,
 				);
 			}
 			else {
 				serverQueue.songs.push(song);
 				return message.channel.send(
-					`Added to the queue **${song.title}**`,
+					`Added to the queue **${song.title}** (${math.formatTime(song.duration)})`,
 				);
 			}
 		}
@@ -136,6 +137,6 @@ module.exports = {
 			server.dispatcher = dispatcher;
 		}
 
-		serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+		serverQueue.textChannel.send(`Start playing **${song.title}** (${math.formatTime(song.duration)})`);
 	},
 };

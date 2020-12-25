@@ -1,3 +1,5 @@
+const math = require('../util/math');
+
 module.exports = {
 	name: 'queue',
 	description: 'Gets song queue',
@@ -11,7 +13,7 @@ module.exports = {
 			str = 'Queue (1-25):';
 		}
 		serverQueue.songs.forEach(song => {
-			str += `\n> **${song.title}**`;
+			str += `\n> **${song.title}** (${math.formatTime(song.duration)})`;
 			if (index >= 25) {
 				total += index;
 				message.channel.send(str);
